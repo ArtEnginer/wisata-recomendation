@@ -11,6 +11,15 @@
 <link type="text/css" rel="stylesheet" href="/assets/leaflet/leaflet.css" />
 <link type="text/css" rel="stylesheet" href="/assets/leaflet/Leaflet.AnimatedSearchBox.css" />
 <link type="text/css" rel="stylesheet" href="/css/fancybox.css" />
+<!-- Leaflet -->
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
-<!--Import materialize.css-->
+
+<!-- Leaflet Geocoder -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+
+
 <link type="text/css" rel="stylesheet" href="/css/main.css?timestamp=<?= time() ?>" />

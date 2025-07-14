@@ -1,13 +1,13 @@
 const table = {
-  barang_masuk: $("#table-barang_masuk").DataTable({
+  kriteria_klasterisasi: $("#table-kriteria-klasterisasi").DataTable({
     responsive: true,
     ajax: {
-      url: origin + "/api/barang-masuk",
+      url: origin + "/api/kriteria-klasterisasi",
       dataSrc: "",
     },
     order: [
-      [2, "asc"],
       [0, "asc"],
+      [3, "asc"],
     ],
     columns: [
       {
@@ -17,16 +17,15 @@ const table = {
           return meta.row + meta.settings._iDisplayStart + 1;
         },
       },
-      { title: "Nama", data: "barang.nama" },
-      { title: "Kode", data: "barang.kode" },
-      { title: "Jumlah", data: "jumlah" },
+      { title: "Nama", data: "nama" },
+      { title: "Kode", data: "kode" },
 
       {
         title: "Aksi",
         data: "id",
         render: (data, type, row) => {
           return `<div class="table-control">
-          <!-- <a role="button" class="btn waves-effect waves-light btn-action btn-popup orange darken-2" data-target="edit" data-action="edit" data-id="${data}"><i class="material-icons">edit</i></a> -->
+          <a role="button" class="btn waves-effect waves-light btn-action btn-popup orange darken-2" data-target="edit" data-action="edit" data-id="${data}"><i class="material-icons">edit</i></a>
           <a role="button" class="btn waves-effect waves-light btn-action red" data-action="delete" data-id="${data}"><i class="material-icons">delete</i></a>
           </div>`;
         },
@@ -35,16 +34,110 @@ const table = {
   }),
 };
 
+let modalMap;
+let modalMarker;
+
+function initModalMap() {
+  // Hapus map jika sudah ada
+  if (modalMap) {
+    modalMap.remove();
+  }
+
+  // Inisialisasi map
+  modalMap = L.map("modalMapContainer").setView([-6.2, 106.816666], 10);
+
+  // OpenStreetMap
+  const osm = L.tileLayer(
+    "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    {
+      attribution: "&copy; OpenStreetMap contributors",
+    }
+  ).addTo(modalMap);
+
+  // Google Maps (via gtile proxies)
+  const googleSat = L.tileLayer(
+    "http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+    {
+      maxZoom: 20,
+      subdomains: ["mt0", "mt1", "mt2", "mt3"],
+      attribution: "Google Satellite",
+    }
+  );
+
+  // Esri
+  const esri = L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/" +
+      "World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+    {
+      attribution: "Tiles &copy; Esri",
+    }
+  );
+
+  // Topo
+  const topo = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+    attribution: "OpenTopoMap",
+  });
+
+  // Layer switcher
+  const baseLayers = {
+    OpenStreetMap: osm,
+    "Google Satellite": googleSat,
+    "Esri Street": esri,
+    "Topo Map": topo,
+  };
+
+  L.control.layers(baseLayers).addTo(modalMap);
+
+  // Geocoder (search lokasi)
+  const geocoder = L.Control.geocoder({
+    defaultMarkGeocode: false,
+    position: "topleft",
+    placeholder: "Cari lokasi...",
+    errorMessage: "Lokasi tidak ditemukan",
+  })
+    .on("markgeocode", function (e) {
+      const center = e.geocode.center;
+      modalMap.setView(center, 15);
+
+      if (modalMarker) {
+        modalMap.removeLayer(modalMarker);
+      }
+
+      modalMarker = L.marker(center).addTo(modalMap);
+      $("#add-latitude").val(center.lat);
+      $("#add-longitude").val(center.lng);
+    })
+    .addTo(modalMap);
+
+  // Klik peta untuk pilih lokasi
+  modalMap.on("click", function (e) {
+    const { lat, lng } = e.latlng;
+
+    if (modalMarker) {
+      modalMap.removeLayer(modalMarker);
+    }
+
+    modalMarker = L.marker([lat, lng]).addTo(modalMap);
+
+    // Isi form latitude dan longitude
+    $("#add-latitude").val(lat);
+    $("#add-longitude").val(lng);
+  });
+}
+
+// Saat modal dibuka, jalankan peta
+$(".modal-trigger[data-target='modal-map']").on("click", function () {
+  setTimeout(() => {
+    initModalMap();
+  }, 500); // delay agar container modal sudah render
+});
+
 $("form#form-add").on("submit", function (e) {
   e.preventDefault();
-  const data = {};
-  $(this)
-    .serializeArray()
-    .map(function (x) {
-      data[x.name] = x.value;
-    });
 
-  const form = $(this)[0];
+  const form = this;
+  const formData = new FormData(form); // Ini akan otomatis menangkap file juga
+
   const elements = form.elements;
   for (let i = 0, len = elements.length; i < len; ++i) {
     elements[i].readOnly = true;
@@ -52,12 +145,13 @@ $("form#form-add").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/barang-masuk",
-    data: data,
-    cache: false,
+    url: origin + "/api/kriteria-klasterisasi",
+    data: formData,
+    contentType: false, // WAJIB agar FormData bekerja
+    processData: false, // WAJIB agar FormData tidak diubah jadi query string
     success: (data) => {
-      $(this)[0].reset();
-      cloud.pull("barang_masuk");
+      form.reset();
+      cloud.pull("kriteria-klasterisasi");
       if (data.messages) {
         $.each(data.messages, function (icon, text) {
           Toast.fire({
@@ -93,10 +187,10 @@ $("body").on("click", ".btn-action", function (e) {
         if (result.isConfirmed) {
           $.ajax({
             type: "DELETE",
-            url: origin + "/api/barang-masuk/" + id,
+            url: origin + "/api/kriteria-klasterisasi/" + id,
             cache: false,
             success: (data) => {
-              table.barang_masuk.ajax.reload();
+              table.kriteria_klasterisasi.ajax.reload();
               if (data.messages) {
                 $.each(data.messages, function (icon, text) {
                   Toast.fire({
@@ -111,7 +205,8 @@ $("body").on("click", ".btn-action", function (e) {
       });
       break;
     case "edit":
-      let dataEdit = cloud.get("barang-masuk").find((x) => x.id == id);
+      let dataEdit = cloud.get("kriteria-klasterisasi").find((x) => x.id == id);
+      console.log(dataEdit);
       $("form#form-edit")[0].reset();
       $("form#form-edit").find("input[name=id]").val(dataEdit.id);
       $.each(dataEdit, function (field, val) {
@@ -143,12 +238,12 @@ $("form#form-edit").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/barang-masuk/" + data.id,
+    url: origin + "/api/kriteria-klasterisasi/" + data.id,
     data: data,
     cache: false,
     success: (data) => {
       $(this)[0].reset();
-      cloud.pull("barang_masuk");
+      cloud.pull("kriteria-klasterisasi");
       if (data.messages) {
         $.each(data.messages, function (icon, text) {
           Toast.fire({
@@ -174,37 +269,14 @@ $("body").on("keyup", "#form-edit input[name=nama]", function (e) {
   $("#form-edit input[name=name]").val($(this).val());
 });
 
-function loadBarangOptions() {
-  $.get(origin + "/api/barang", function (data) {
-    if (!Array.isArray(data)) return;
-
-    const options = data
-      .map((item) => `<option value="${item.kode}">${item.nama}</option>`)
-      .join("");
-
-    // Untuk form tambah
-    $("#add-barang_kode").html(
-      '<option value="" disabled selected>Pilih barang</option>' + options
-    );
-    // Untuk form edit
-    $("#edit-barang_kode").html(
-      '<option value="" disabled selected>Pilih barang</option>' + options
-    );
-
-    // Re-init select setelah isi
-    M.FormSelect.init(document.querySelectorAll("select"));
-  });
-}
-
 $(document).ready(function () {
-  loadBarangOptions();
   cloud
-    .add(origin + "/api/barang-masuk", {
-      name: "barang_masuk",
+    .add(origin + "/api/kriteria-klasterisasi", {
+      name: "kriteria-klasterisasi",
       callback: (data) => {
-        table.barang_masuk.ajax.reload();
+        table.kriteria_klasterisasi.ajax.reload();
       },
     })
-    .then((barang_masuk) => {});
+    .then((kriteria_klasterisasi) => {});
   $(".preloader").slideUp();
 });

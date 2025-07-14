@@ -13,4 +13,8 @@
 <script type="text/javascript" src="/js/moment.min.js"></script>
 <script type="text/javascript" src="/js/fancybox.umd.js"></script>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<!-- Leaflet Providers (HARUS setelah Leaflet) -->
+<script src="https://unpkg.com/leaflet-providers/leaflet-providers.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="/js/main.js?timestamp=<?= time() ?>"></script>

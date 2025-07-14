@@ -5,7 +5,8 @@
 
 <?= $this->extend('layouts/panel/main') ?>
 <?= $this->section('main') ?>
-<h1 class="page-title">Data Barang keluar</h1>
+
+<h1 class="page-title">Data kriteria-klasterisasi</h1>
 <div class="page-wrapper">
     <div class="page">
         <div class="container">
@@ -17,7 +18,7 @@
             <div class="row">
                 <div class="col s12">
                     <div class="table-wrapper">
-                        <table class="striped highlight responsive-table" id="table-barang_keluar" width="100%">
+                        <table class="striped highlight responsive-table" id="table-kriteria-klasterisasi" width="100%">
                             <thead>
                             </thead>
                             <tbody>
@@ -35,24 +36,27 @@
 
 <?= $this->section('popup') ?>
 <div class="popup side" data-page="add">
-    <h1>Tambah Barang keluar</h1>
+    <h1>Tambah kriteria-klasterisasi</h1>
     <br>
-    <form action="" id="form-add" class="row">
+    <form id="form-add" class="row" enctype="multipart/form-data">
         <input type="hidden" name="id" id="add-id">
+        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <div class="input-field col s12">
-            <select name="barang_kode" id="add-barang_kode" required>
-                <option value="" disabled selected>Pilih barang</option>
+            <input name="nama" id="add-nama" type="text" class="validate" required>
+            <label for="add-nama">Nama kriteria-klasterisasi</label>
+        </div>
 
-            </select>
-        </div>
         <div class="input-field col s12">
-            <input name="jumlah" id="add-jumlah" type="number" class="validate" required>
-            <label for="add-jumlah">Jumlah barang_keluar</label>
+            <input name="kode" id="add-kode" type="text" class="validate" required>
+            <label for="add-kode">Kode kriteria-klasterisasi</label>
         </div>
+
         <div class="input-field col s12">
-            <input name="tanggal" id="add-tanggal" type="date" class="validate" required>
-            <label for="add-tanggal">Tanggal barang_keluar</label>
+            <input name="alamat" id="add-alamat" type="text" class="validate" required>
+            <label for="add-alamat">Alamat kriteria-klasterisasi</label>
         </div>
+
+
 
         <div class="row">
             <div class="input-field col s12 center">
@@ -61,25 +65,23 @@
         </div>
     </form>
 </div>
+
 <div class="popup side" data-page="edit">
-    <h1>Edit Data barang_keluar</h1>
+    <h1>Edit Data kriteria-klasterisasi</h1>
     <br>
-    <form action="" id="form-edit" class="row">
+    <form id="form-edit" class="row" enctype="multipart/form-data">
+        <input type="hidden" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>">
         <input type="hidden" name="id" id="edit-id">
-        <div class="input-field col s12">
-            <select name="barang_kode" id="edit-barang_kode" required>
-                <option value="" disabled selected>Pilih barang</option>
 
-            </select>
+        <div class="input-field col s12">
+            <input name="nama" id="edit-nama" type="text" class="validate" required>
+            <label for="edit-nama">Nama kriteria-klasterisasi</label>
         </div>
         <div class="input-field col s12">
-            <input name="jumlah" id="edit-jumlah" type="number" class="validate" required>
-            <label for="edit-jumlah">Jumlah barang_keluar</label>
+            <input name="kode" id="edit-kode" type="text" class="validate" required>
+            <label for="edit-kode">Kode kriteria-klasterisasi</label>
         </div>
-        <div class="input-field col s12">
-            <input name="tanggal" id="edit-tanggal" type="date" class="validate" required>
-            <label for="edit-tanggal">Tanggal barang_keluar</label>
-        </div>
+
         <div class="row">
             <div class="input-field col s12 center">
                 <button class="btn waves-effect waves-light green" type="submit"><i class="material-icons left">save</i>Simpan</button>
@@ -87,4 +89,6 @@
         </div>
     </form>
 </div>
+
+
 <?= $this->endSection() ?>

@@ -4,7 +4,7 @@ namespace App\Controllers\Frontend;
 
 use App\Controllers\BaseController;
 use App\Models\PenggunaModel;
-use App\Models\KategoriModel;
+use App\Models\WisataModel;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
@@ -30,67 +30,32 @@ class Manage extends BaseController
         ]);
         return $this->view->render("pages/panel/admin/index");
     }
-    public function barang(): string
+    public function wisata(): string
     {
         $this->view->setData([
-            "page" => "barang",
-            "kategori" => KategoriModel::all(),
+            "page" => "wisata",
+            "wisata" => WisataModel::all(),
         ]);
-        return $this->view->render("pages/panel/admin/barang");
-    }
-    public function kategori(): string
-    {
-        $this->view->setData([
-            "page" => "kategori",
-        ]);
-        return $this->view->render("pages/panel/admin/kategori");
-    }
-    // barang masuk
-    public function barangMasuk(): string
-    {
-        $this->view->setData([
-            "page" => "barang_masuk",
-        ]);
-        return $this->view->render("pages/panel/admin/barang_masuk");
-    }
-    // barang keluar
-    public function barangKeluar(): string
-    {
-        $this->view->setData([
-            "page" => "barang_keluar",
-        ]);
-        return $this->view->render("pages/panel/admin/barang_keluar");
-    }
-    public function maintenance(): string
-    {
-        $this->view->setData([
-            "page" => "maintenance",
-        ]);
-        return $this->view->render("pages/panel/admin/maintenance");
+        return $this->view->render("pages/panel/admin/wisata");
     }
 
-    public function pengadaanKaryawan(): string
+    public function kriteriaKlasterisasi(): string
     {
         $this->view->setData([
-            "page" => "pengadaan_karyawan",
+            "page" => "kriteria-klasterisasi",
         ]);
-        return $this->view->render("pages/panel/admin/pengadaan_karyawan");
+        return $this->view->render("pages/panel/admin/kriteria-klasterisasi");
     }
 
-    public function pengadaanTeknisi(): string
+    public function kriteriaPerengkingan(): string
     {
         $this->view->setData([
-            "page" => "pengadaan_teknisi",
+            "page" => "kriteria-perengkingan",
         ]);
-        return $this->view->render("pages/panel/admin/pengadaan_teknisi");
+        return $this->view->render("pages/panel/admin/kriteria-perengkingan");
     }
-    public function peminjaman(): string
-    {
-        $this->view->setData([
-            "page" => "peminjaman",
-        ]);
-        return $this->view->render("pages/panel/admin/peminjaman");
-    }
+
+
     public function user(): string
     {
         $this->view->setData([

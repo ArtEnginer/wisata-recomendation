@@ -40,36 +40,27 @@ class InitSeeder extends Seeder
         ])->addGroup('teknisi')->activate();
 
 
-        // kategori
-        $this->db->table('kategori')->insertBatch([
+        // wisata
+        $this->db->table('wisata')->insertBatch([
             [
                 'kode' => '001',
-                'nama' => 'PERLENGKAPAN',
+                'nama' => 'Wisata Alam',
+                'alamat' => 'Jl. Raya No. 1',
+                'deskripsi' => 'Wisata alam yang indah',
+                'gambar' => 'wisata-alam.jpg',
+                'latitude' => '-7.123456',
+                'longitude' => '112.123456',
+                'klaster' => null,
             ],
             [
                 'kode' => '002',
-                'nama' => 'PERALATAN',
-            ],
-        ]);
-        // barang
-        $this->db->table('barang')->insertBatch([
-            [
-                'kode' => '001',
-                'nama' => 'KURSI',
-                'kategori_kode' => '001',
-                'stok' => 0,
-            ],
-            [
-                'kode' => '002',
-                'nama' => 'MEJA',
-                'kategori_kode' => '001',
-                'stok' => 0,
-            ],
-            [
-                'kode' => '003',
-                'nama' => 'LAPTOP',
-                'kategori_kode' => '002',
-                'stok' => 0,
+                'nama' => 'Wisata Budaya',
+                'alamat' => 'Jl. Raya No. 2',
+                'deskripsi' => 'Wisata budaya yang menarik',
+                'gambar' => 'wisata-budaya.jpg',
+                'latitude' => '-7.654321',
+                'longitude' => '112.654321',
+                'klaster' =>  null,
             ],
         ]);
     }
