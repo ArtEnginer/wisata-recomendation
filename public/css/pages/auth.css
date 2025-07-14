@@ -1,0 +1,136 @@
+.parent-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: white;
+}
+
+.nav-btn {
+  position: relative;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  gap: 0.5rem;
+  border-radius: 2rem;
+  background-color: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: var(--primary);
+  border: 2px solid transparent;
+  color: white;
+}
+
+.nav-btn span {
+  font-weight: bold;
+}
+
+.abs-topleft {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.parent-wrapper .hero-wrapper {
+  display: none;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 100%;
+  background-color: white;
+}
+
+.parent-wrapper .hero-wrapper .hero {
+  position: relative;
+  width: 90%;
+}
+
+.parent-wrapper .content-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  height: 100%;
+  width: 100%;
+  max-width: 35rem;
+  background: var(--primary-dark);
+}
+
+.parent-wrapper .content-wrapper .logo {
+  position: relative;
+  width: 50%;
+}
+
+.parent-wrapper .content-wrapper .auth-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  padding: 2rem 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  max-height: 80%;
+  box-shadow: 0 0.5rem 1rem 4px rgba(0, 0, 0, 0.3);
+}
+
+.parent-wrapper .content-wrapper .auth-card .title {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.parent-wrapper .content-wrapper .auth-card .title::after {
+  content: "";
+  position: relative;
+  display: block;
+  width: 5rem;
+  height: 0.25rem;
+  margin: 0.5rem auto;
+  background-color: var(--primary-color);
+}
+
+.parent-wrapper .content-wrapper .auth-card .card-body {
+  flex: 1;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.auth-card .btn-auth {
+  margin: 0.5rem 0;
+  width: 100%;
+  border-radius: 2rem;
+  background: var(--primary-gradient);
+}
+
+.auth-card .btn-auth.disabled {
+  background: none;
+}
+
+.auth-hero {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* media query for tab only */
+@media only screen and (min-width: 768px) {
+  .parent-wrapper .hero-wrapper {
+    display: flex;
+  }
+}
+
+@media only screen and (min-width: 992px) {}

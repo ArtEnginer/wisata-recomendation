@@ -1,0 +1,242 @@
+[
+    {
+        "id": "1",
+        "kriteria_left_id": "1",
+        "kriteria_right_id": "2",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "2",
+        "kriteria_left_id": "1",
+        "kriteria_right_id": "3",
+        "bobot": "0.33",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "3",
+        "kriteria_left_id": "1",
+        "kriteria_right_id": "4",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "4",
+        "kriteria_left_id": "1",
+        "kriteria_right_id": "5",
+        "bobot": "0.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "5",
+        "kriteria_left_id": "1",
+        "kriteria_right_id": "6",
+        "bobot": "0.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "6",
+        "kriteria_left_id": "2",
+        "kriteria_right_id": "1",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "7",
+        "kriteria_left_id": "2",
+        "kriteria_right_id": "3",
+        "bobot": "0.33",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "8",
+        "kriteria_left_id": "2",
+        "kriteria_right_id": "4",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "9",
+        "kriteria_left_id": "2",
+        "kriteria_right_id": "5",
+        "bobot": "0.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "10",
+        "kriteria_left_id": "2",
+        "kriteria_right_id": "6",
+        "bobot": "0.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "11",
+        "kriteria_left_id": "3",
+        "kriteria_right_id": "1",
+        "bobot": "3",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "12",
+        "kriteria_left_id": "3",
+        "kriteria_right_id": "2",
+        "bobot": "3",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "13",
+        "kriteria_left_id": "3",
+        "kriteria_right_id": "4",
+        "bobot": "3",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "14",
+        "kriteria_left_id": "3",
+        "kriteria_right_id": "5",
+        "bobot": "1.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "15",
+        "kriteria_left_id": "3",
+        "kriteria_right_id": "6",
+        "bobot": "1.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "16",
+        "kriteria_left_id": "4",
+        "kriteria_right_id": "1",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "17",
+        "kriteria_left_id": "4",
+        "kriteria_right_id": "2",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "18",
+        "kriteria_left_id": "4",
+        "kriteria_right_id": "3",
+        "bobot": "0.33",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "19",
+        "kriteria_left_id": "4",
+        "kriteria_right_id": "5",
+        "bobot": "0.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "20",
+        "kriteria_left_id": "4",
+        "kriteria_right_id": "6",
+        "bobot": "0.5",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "21",
+        "kriteria_left_id": "5",
+        "kriteria_right_id": "1",
+        "bobot": "2",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "22",
+        "kriteria_left_id": "5",
+        "kriteria_right_id": "2",
+        "bobot": "2",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "23",
+        "kriteria_left_id": "5",
+        "kriteria_right_id": "3",
+        "bobot": "0.67",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "24",
+        "kriteria_left_id": "5",
+        "kriteria_right_id": "4",
+        "bobot": "2",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "25",
+        "kriteria_left_id": "5",
+        "kriteria_right_id": "6",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "26",
+        "kriteria_left_id": "6",
+        "kriteria_right_id": "1",
+        "bobot": "2",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "27",
+        "kriteria_left_id": "6",
+        "kriteria_right_id": "2",
+        "bobot": "2",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "28",
+        "kriteria_left_id": "6",
+        "kriteria_right_id": "3",
+        "bobot": "0.67",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "29",
+        "kriteria_left_id": "6",
+        "kriteria_right_id": "4",
+        "bobot": "2",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    },
+    {
+        "id": "30",
+        "kriteria_left_id": "6",
+        "kriteria_right_id": "5",
+        "bobot": "1",
+        "created_at": "2024-07-23 11:06:35",
+        "updated_at": "2024-07-23 11:06:35"
+    }
+]
