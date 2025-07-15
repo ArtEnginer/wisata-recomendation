@@ -23,7 +23,7 @@
             <?= $this->include('layouts/auth/hero') ?>
         </div>
         <div class="content-wrapper">
-            <img src="<?= base_url('img/logo.jpeg') ?>" class="logo" alt="logo" style="width: 10rem;">
+            <!-- <img src="<?= base_url('img/logo.jpeg') ?>" class="logo" alt="logo" style="width: 10rem;"> -->
             <?= $this->renderSection('main') ?>
         </div>
     </div>

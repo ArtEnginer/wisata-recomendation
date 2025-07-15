@@ -62,6 +62,78 @@ class InitSeeder extends Seeder
                 'longitude' => '112.654321',
                 'klaster' =>  null,
             ],
+            [
+                'kode' => '003',
+                'nama' => 'Wisata Sejarah',
+                'alamat' => 'Jl. Raya No. 3',
+                'deskripsi' => 'Wisata sejarah yang kaya akan budaya',
+                'gambar' => 'wisata-sejarah.jpg',
+                'latitude' => '-7.987654',
+                'longitude' => '112.987654',
+                'klaster' =>  null,
+            ],
+            [
+                'kode' => '004',
+                'nama' => 'Wisata Kuliner',
+                'alamat' => 'Jl. Raya No. 4',
+                'deskripsi' => 'Wisata kuliner yang lezat',
+                'gambar' => 'wisata-kuliner.jpg',
+                'latitude' => '-7.456789',
+                'longitude' => '112.456789',
+                'klaster' =>  null,
+            ],
+        ]);
+
+
+        $this->db->table('kriteria_klasterisasi')->insertBatch([
+            [
+                'kode' => 'K001',
+                'nama' => 'Keragaman Keunikan',
+                'deskripsi' => 'Kriteria ini menilai keragaman dan keunikan dari objek wisata.',
+            ],
+            [
+                'kode' => 'K002',
+                'nama' => 'Daya Tarik',
+                'deskripsi' => 'Kriteria ini menilai daya tarik dari objek wisata.',
+            ],
+            [
+                'kode' => 'K003',
+                'nama' => 'Nilai Historis / Budaya',
+                'deskripsi' => 'Kriteria ini menilai nilai historis atau budaya dari objek wisata.',
+            ],
+            [
+                'kode' => 'K004',
+                'nama' => 'Jumlah Pengunjung',
+                'deskripsi' => 'Kriteria ini menilai jumlah pengunjung dari objek wisata.',
+            ],
+            [
+                'kode' => 'K005',
+                'nama' => 'Popularitas',
+                'deskripsi' => 'Kriteria ini menilai popularitas dari objek wisata.',
+            ],
+        ]);
+
+        $this->db->table('kriteria_perengkingan')->insertBatch([
+            [
+                'kode' => 'P001',
+                'nama' => 'Lokasi Strategis',
+                'deskripsi' => 'Kriteria ini menilai lokasi strategis dari objek wisata.',
+            ],
+            [
+                'kode' => 'P002',
+                'nama' => 'Fasilitas',
+                'deskripsi' => 'Kriteria ini menilai fasilitas yang tersedia di objek wisata.',
+            ],
+            [
+                'kode' => 'P003',
+                'nama' => 'Biaya',
+                'deskripsi' => 'Kriteria ini menilai biaya yang diperlukan untuk mengunjungi objek wisata.',
+            ],
+            [
+                'kode' => 'P004',
+                'nama' => 'Keamanan',
+                'deskripsi' => 'Kriteria ini menilai tingkat keamanan di objek wisata.',
+            ],
         ]);
     }
 }

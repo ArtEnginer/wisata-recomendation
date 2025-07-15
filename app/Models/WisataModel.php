@@ -18,4 +18,9 @@ class WisataModel extends Model
         "longitude",
         "klaster",
     ];
+
+    public function nilaiKriteriaKlasterisasi()
+    {
+        return $this->hasMany(NilaiKriteriaKlasterisasiModel::class, 'wisata_kode', 'kode');
+    }
 }

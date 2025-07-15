@@ -4,6 +4,7 @@ use App\Controllers\Api\UserController;
 use App\Controllers\Api\WisataController;
 use App\Controllers\Api\KriteriaKlasterisasiController;
 use App\Controllers\Api\KriteriaPerengkinganController;
+use App\Controllers\Api\NilaiKriteriaKlasterisasiController;
 use App\Controllers\Frontend\Manage;
 use App\Controllers\Migrate;
 use CodeIgniter\Router\RouteCollection;
@@ -38,10 +39,14 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], static function ($
     $routes->group('v2', ['namespace' => 'App\Controllers\Api'], static function ($routes) {
         $routes->get('source/storage/(:any)', 'SourceController::storage/$1');
     });
+    $routes->get('wisata/clustering', [WisataController::class, 'clustering']);
     $routes->resource('wisata', ['namespace' => '', 'controller' => WisataController::class, 'websafe' => 1]);
     $routes->resource('kriteria-klasterisasi', ['namespace' => '', 'controller' => KriteriaKlasterisasiController::class, 'websafe' => 1]);
     $routes->resource('kriteria-perengkingan', ['namespace' => '', 'controller' => KriteriaPerengkinganController::class, 'websafe' => 1]);
-
+    $routes->post('nilai-kriteria-klasterisasi', [NilaiKriteriaKlasterisasiController::class, 'store']);
+    $routes->post('nilai-kriteria-klasterisasi/update', [NilaiKriteriaKlasterisasiController::class, 'storeupdate']);
+    $routes->get('nilai-kriteria-klasterisasi/grouped', [NilaiKriteriaKlasterisasiController::class, 'grouped']);
+    $routes->resource('nilai-kriteria-klasterisasi', ['namespace' => '', 'controller' => NilaiKriteriaKlasterisasiController::class, 'websafe' => 1]);
 
 
     $routes->post('user/activate', [UserController::class, 'activate']);

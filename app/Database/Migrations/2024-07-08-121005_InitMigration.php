@@ -56,6 +56,12 @@ class InitMigration extends Migration
                 ->on("kriteria_klasterisasi")
                 ->onUpdate("cascade")
                 ->onDelete("cascade");
+            $table->string("wisata_kode");
+            $table->foreign("wisata_kode")
+                ->references("kode")
+                ->on("wisata")
+                ->onUpdate("cascade")
+                ->onDelete("cascade");
             $table->string("nilai");
             $table->timestamps();
         });

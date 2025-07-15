@@ -55,6 +55,15 @@ class Manage extends BaseController
         return $this->view->render("pages/panel/admin/kriteria-perengkingan");
     }
 
+    // nilaiKriteriaKlasterisasi
+    public function nilaiKriteriaKlasterisasi(): string
+    {
+        $this->view->setData([
+            "page" => "nilai-kriteria-klasterisasi",
+        ]);
+        return $this->view->render("pages/panel/admin/nilai-kriteria-klasterisasi");
+    }
+
 
     public function user(): string
     {
