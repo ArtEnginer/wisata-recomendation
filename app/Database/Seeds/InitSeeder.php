@@ -18,28 +18,20 @@ class InitSeeder extends Seeder
             'password' => "password",
         ])->addGroup('admin')->activate();
         PenggunaModel::create([
-            'username' => 'karyawan',
-            'name' => 'karyawan',
+            'username' => 'pimpinan',
+            'name' => 'pimpinan',
         ])->setEmailIdentity([
-            'email' => 'karyawan@gmail.com',
+            'email' => 'pimpinan@gmail.com',
             'password' => "password",
-        ])->addGroup('karyawan')->activate();
+        ])->addGroup('pimpinan')->activate();
         PenggunaModel::create([
-            'username' => 'hrd',
-            'name' => 'hrd',
+            'username' => 'wisatawan',
+            'name' => 'wisatawan',
         ])->setEmailIdentity([
-            'email' => 'hrd@gmail.com',
+            'email' => 'wisatawan@gmail.com',
             'password' => "password",
-        ])->addGroup('hrd')->activate();
-        PenggunaModel::create([
-            'username' => 'teknisi',
-            'name' => 'teknisi',
-        ])->setEmailIdentity([
-            'email' => 'teknisi@gmail.com',
-            'password' => "password",
-        ])->addGroup('teknisi')->activate();
-
-
+        ])->addGroup('wisatawan')->activate();
+     
         // wisata
         $this->db->table('wisata')->insertBatch([
             [

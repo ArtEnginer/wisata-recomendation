@@ -5,10 +5,13 @@ use App\Controllers\Api\WisataController;
 use App\Controllers\Api\KriteriaKlasterisasiController;
 use App\Controllers\Api\KriteriaPerengkinganController;
 use App\Controllers\Api\NilaiKriteriaKlasterisasiController;
+use App\Controllers\Api\NilaiKriteriaPerengkinganController;
+use App\Controllers\Api\RecommendationController;
 use App\Controllers\Frontend\Manage;
 use App\Controllers\Migrate;
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\Home;
+
 
 /**
  * @var RouteCollection $routes
@@ -30,6 +33,7 @@ $routes->group('panel', static function (RouteCollection $routes) {
     $routes->get('kriteria-klasterisasi', [Manage::class, 'kriteriaKlasterisasi']);
     $routes->get('kriteria-perengkingan', [Manage::class, 'kriteriaPerengkingan']);
     $routes->get('nilai-kriteria-klasterisasi', [Manage::class, 'nilaiKriteriaKlasterisasi']);
+    $routes->get('nilai-kriteria-perengkingan', [Manage::class, 'nilaiKriteriaPerengkingan']);
 
     $routes->get('user', [Manage::class, 'user']);
 });
@@ -47,7 +51,16 @@ $routes->group('api', ['namespace' => 'App\Controllers\Api'], static function ($
     $routes->post('nilai-kriteria-klasterisasi/update', [NilaiKriteriaKlasterisasiController::class, 'storeupdate']);
     $routes->get('nilai-kriteria-klasterisasi/grouped', [NilaiKriteriaKlasterisasiController::class, 'grouped']);
     $routes->resource('nilai-kriteria-klasterisasi', ['namespace' => '', 'controller' => NilaiKriteriaKlasterisasiController::class, 'websafe' => 1]);
+    $routes->post('nilai-kriteria-perengkingan', [NilaiKriteriaPerengkinganController::class, 'store']);
+    $routes->post('nilai-kriteria-perengkingan/update', [NilaiKriteriaPerengkinganController::class, 'storeupdate']);
+    $routes->get('nilai-kriteria-perengkingan/grouped', [NilaiKriteriaPerengkinganController::class, 'grouped']);
+    $routes->resource('nilai-kriteria-perengkingan', ['namespace' => '', 'controller' => NilaiKriteriaPerengkinganController::class, 'websafe' => 1]);
 
+
+    $routes->get('/', [RecommendationController::class, 'index']);
+    $routes->post('process-cluster', [RecommendationController::class, 'processCluster']);
+    $routes->post('calculate-distance', [RecommendationController::class, 'calculateDistance']);
+    $routes->post('get-recommendation', [RecommendationController::class, 'getRecommendation']);
 
     $routes->post('user/activate', [UserController::class, 'activate']);
     $routes->post('user/deactivate', [UserController::class, 'deactivate']);

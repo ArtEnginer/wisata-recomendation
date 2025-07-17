@@ -8,7 +8,7 @@ use App\Models\WisataModel;
 class WisataController extends BaseApi
 {
     protected $modelName = WisataModel::class;
-    protected $load = ['nilaiKriteriaKlasterisasi'];
+    protected $load = ['nilaiKriteriaKlasterisasi', 'nilaiKriteriaPerengkingan'];
     public function validateCreate(&$request)
 
     {

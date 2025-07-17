@@ -72,7 +72,31 @@ class InitMigration extends Migration
             $table->id();
             $table->string("kode")->unique();
             $table->string("nama");
+            // weight
+            $table->float("weight")->default(1);
+            // benefit or cost
+            $table->boolean("benefit")->default(true);
             $table->text("deskripsi")->nullable();
+            $table->timestamps();
+        });
+
+        // nilai_kriteria_perengkingan
+        Eloquent::schema()->create("nilai_kriteria_perengkingan", function (Blueprint
+        $table) {
+            $table->id();
+            $table->string("kriteria_perengkingan_kode");
+            $table->foreign("kriteria_perengkingan_kode")
+                ->references("kode")
+                ->on("kriteria_perengkingan")
+                ->onUpdate("cascade")
+                ->onDelete("cascade");
+            $table->string("wisata_kode");
+            $table->foreign("wisata_kode")
+                ->references("kode")
+                ->on("wisata")
+                ->onUpdate("cascade")
+                ->onDelete("cascade");
+            $table->string("nilai");
             $table->timestamps();
         });
     }
@@ -83,6 +107,7 @@ class InitMigration extends Migration
         Eloquent::schema()->dropIfExists('kriteria_klasterisasi');
         Eloquent::schema()->dropIfExists('nilai_kriteria_klasterisasi');
         Eloquent::schema()->dropIfExists('kriteria_perengkingan');
+        Eloquent::schema()->dropIfExists('nilai_kriteria_perengkingan');
         Eloquent::schema()->dropIfExists('wisata');
     }
 }

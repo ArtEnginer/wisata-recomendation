@@ -52,11 +52,17 @@
         </div>
 
         <div class="input-field col s12">
-            <input name="alamat" id="add-alamat" type="text" class="validate" required>
-            <label for="add-alamat">Alamat kriteria-perengkingan</label>
+            <input name="weight" id="add-weight" type="number" step="any" class="validate" value="1" required>
+            <label for="add-weight">Weight (Bobot)</label>
         </div>
 
-
+        <div class="input-field col s12">
+            <select name="benefit" id="add-benefit">
+                <option value="true">Benefit</option>
+                <option value="false">Cost</option>
+            </select>
+            <label for="add-benefit">Jenis Kriteria</label>
+        </div>
 
         <div class="row">
             <div class="input-field col s12 center">
@@ -80,6 +86,18 @@
         <div class="input-field col s12">
             <input name="kode" id="edit-kode" type="text" class="validate" required>
             <label for="edit-kode">Kode kriteria-perengkingan</label>
+        </div>
+        <div class="input-field col s12">
+            <input name="weight" id="edit-weight" type="number" step="any" class="validate" value="1" required>
+            <label for="edit-weight">Weight (Bobot)</label>
+        </div>
+
+        <div class="input-field col s12">
+            <select name="benefit" id="edit-benefit">
+                <option value="true">Benefit</option>
+                <option value="false">Cost</option>
+            </select>
+            <label for="edit-benefit">Jenis Kriteria</label>
         </div>
 
         <div class="row">

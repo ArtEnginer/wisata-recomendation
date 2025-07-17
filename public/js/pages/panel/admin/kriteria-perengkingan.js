@@ -19,6 +19,22 @@ const table = {
       },
       { title: "Nama", data: "nama" },
       { title: "Kode", data: "kode" },
+      {
+        title: "Weight",
+        data: "weight",
+        render: (data, type, row) => {
+          return `<span class="badge">${data}</span>`;
+        },
+      },
+      {
+        title: "Jenis Kriteria",
+        data: "benefit",
+        render: (data, type, row) => {
+          return data
+            ? `<span class="badge green">Benefit</span>`
+            : `<span class="badge red">Cost</span>`;
+        },
+      },
 
       {
         title: "Aksi",

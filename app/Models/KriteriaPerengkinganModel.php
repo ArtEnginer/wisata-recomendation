@@ -11,5 +11,8 @@ class KriteriaPerengkinganModel extends Model
         "id",
         "kode",
         "nama",
+        "weight", // Weight for the criteria
+        "benefit", // True if benefit, false if cost
+        "deskripsi",
     ];
 }

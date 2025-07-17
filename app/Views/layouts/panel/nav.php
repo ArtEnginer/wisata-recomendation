@@ -1,7 +1,7 @@
 <a href="#!" class="nav-close"><i class="material-icons">menu</i></a>
 <div class="nav-header">
     <h1><b>
-            MNJ ASET
+            REKOMENDASI WISATA
         </b></h1>
 
     <h3><b>
@@ -33,6 +33,10 @@
             <a href="<?= base_url('panel/kriteria-perengkingan') ?>" class="nav-link"><i class="material-icons">
                     book</i>Kriteria Perengkingan</a>
         </div>
+        <div class="nav-item" data-page="nilai-kriteria-perengkingan">
+            <a href="<?= base_url('panel/nilai-kriteria-perengkingan') ?>" class="nav-link"><i class="material-icons">
+                    assessment</i>Nilai Kriteria Perengkingan</a>
+        </div>
 
 
         <div class="nav-item" data-page="user">
@@ -45,11 +49,8 @@
 
 
 
-    <?php if (auth()->user()->inGroup('karyawan')) : ?>
-        <div class="nav-item" data-page="wisata">
-            <a href="<?= base_url('panel/wisata') ?>" class="nav-link"><i class="material-icons">
-                    place</i>Data Wisata</a>
-        </div>
+    <?php if (auth()->user()->inGroup('wisatawan')) : ?>
+
 
     <?php endif ?>
     <div class="nav-item">

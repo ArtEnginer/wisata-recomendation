@@ -194,40 +194,105 @@ $("#form-edit").on("submit", function (e) {
     },
   });
 });
-
 $("body").on("click", '[data-target="clustering"]', function () {
   $.ajax({
     url: origin + "/api/wisata/clustering",
     method: "GET",
     success: function (res) {
-      const { log, assignments } = res;
+      const { log, assignments, normalisasi } = res;
 
       let html = "";
 
-      log.forEach((entry) => {
-        html += `<h5>Iterasi ${entry.iteration}</h5>`;
-        html += `<ul>`;
+      // Show normalization details
+      html += `<h4>Normalisasi Data</h4>`;
+      html += `<p>Normalisasi dilakukan dengan membagi setiap nilai dengan nilai maksimum per kriteria</p>`;
+      html += `<table class="striped"><thead><tr><th>No</th><th>Kode</th><th>Nama</th><th>Original</th><th>Normalized</th></tr></thead><tbody>`;
+
+      normalisasi.forEach((item) => {
+        html += `<tr>
+          <td>${item.no}</td>
+          <td>${item.kode}</td>
+          <td>${item.nama}</td>
+          <td>[${item.original.map((v) => v.toFixed(2)).join(", ")}]</td>
+          <td>[${item.normalized.map((v) => v.toFixed(4)).join(", ")}]</td>
+        </tr>`;
+      });
+
+      html += `</tbody></table><hr>`;
+
+      // Show K-Means iterations
+      html += `<h4>Proses Iterasi K-Means</h4>`;
+
+      log.forEach((entry, iterIndex) => {
+        html += `<div class="card-panel"><h5>Iterasi ${entry.iteration}</h5>`;
+
+        // Show centroids
+        html += `<h6>Centroids:</h6><ul>`;
         entry.centroids.forEach((c, i) => {
           html += `<li>Centroid ${i + 1}: [${c
-            .map((v) => v.toFixed(2))
+            .map((v) => v.toFixed(4))
             .join(", ")}]</li>`;
         });
-        if (entry.clusters) {
-          html += `<li>Penugasan Cluster: [${Object.entries(entry.clusters)
-            .map(([i, c]) => `Data ${parseInt(i) + 1} → Cluster ${c + 1}`)
-            .join(", ")}]</li>`;
+        html += `</ul>`;
+
+        // Show distances and cluster assignments if available
+        if (entry.distances) {
+          html += `<h6>Perhitungan Jarak dan Penugasan Cluster:</h6>`;
+          html += `<table class="striped"><thead><tr><th>Data</th>`;
+
+          // Add centroid headers
+          for (let i = 0; i < entry.centroids.length; i++) {
+            html += `<th>Jarak ke C${i + 1}</th>`;
+          }
+
+          html += `<th>Cluster</th></tr></thead><tbody>`;
+
+          // Add distance rows
+          Object.entries(entry.distances).forEach(([dataIndex, distances]) => {
+            html += `<tr><td>Data ${parseInt(dataIndex) + 1}</td>`;
+
+            // Add distances to each centroid
+            for (let i = 0; i < entry.centroids.length; i++) {
+              const distKey = `C${i + 1}`;
+              html += `<td>${distances[distKey].toFixed(4)}</td>`;
+            }
+
+            // Add assigned cluster
+            html += `<td>Cluster ${entry.clusters[dataIndex] + 1}</td></tr>`;
+          });
+
+          html += `</tbody></table>`;
         }
-        html += `</ul><hr>`;
+
+        html += `</div><hr>`;
       });
 
-      html += `<h5>Hasil Akhir</h5><ul>`;
+      // Show final results
+      html += `<h4>Hasil Akhir Clustering</h4>`;
+      html += `<table class="striped"><thead><tr>
+        <th>No</th>
+        <th>Kode</th>
+        <th>Nama</th>
+        <th>Cluster</th>
+        <th>Kategori</th>
+        <th>Centroid</th>
+      </tr></thead><tbody>`;
+
       assignments.forEach((a) => {
-        html += `<li>${a.nama} (${a.kode}) → Cluster ${a.cluster + 1} (${
-          a.label
-        })</li>`;
+        const centroid = log[log.length - 1].centroids[a.cluster];
+        html += `<tr>
+          <td>${a.no}</td>
+          <td>${a.kode}</td>
+          <td>${a.nama}</td>
+          <td>Cluster ${a.cluster + 1}</td>
+          <td>${a.label}</td>
+          <td>[${centroid.map((v) => v.toFixed(4)).join(", ")}]</td>
+        </tr>`;
       });
-      html += `</ul>`;
 
+      html += `</tbody></table>`;
+
+      // Update modal content
       $("#clustering-log-content").html(html);
       const modal = M.Modal.getInstance($("#modal-clustering-log"));
       modal.open();

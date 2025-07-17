@@ -26,7 +26,8 @@ class Manage extends BaseController
     public function index(): string
     {
         $this->view->setData([
-            "page" => "dashboard"
+            "page" => "dashboard",
+            "wisata" => WisataModel::all(),
         ]);
         return $this->view->render("pages/panel/admin/index");
     }
@@ -34,7 +35,7 @@ class Manage extends BaseController
     {
         $this->view->setData([
             "page" => "wisata",
-            "wisata" => WisataModel::all(),
+            "wisata" => WisataModel::with(['nilaiKriteriaKlasterisasi', 'nilaiKriteriaPerengkingan'])->get(),
         ]);
         return $this->view->render("pages/panel/admin/wisata");
     }
@@ -63,6 +64,17 @@ class Manage extends BaseController
         ]);
         return $this->view->render("pages/panel/admin/nilai-kriteria-klasterisasi");
     }
+
+    // nilaiKriteriaPerengkingan
+    public function nilaiKriteriaPerengkingan(): string
+    {
+        $this->view->setData([
+            "page" => "nilai-kriteria-perengkingan",
+            "nilai-kriteria-perengkingan",
+        ]);
+        return $this->view->render("pages/panel/admin/nilai-kriteria-perengkingan");
+    }
+
 
 
     public function user(): string

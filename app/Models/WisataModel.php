@@ -23,4 +23,9 @@ class WisataModel extends Model
     {
         return $this->hasMany(NilaiKriteriaKlasterisasiModel::class, 'wisata_kode', 'kode');
     }
+
+    public function nilaiKriteriaPerengkingan()
+    {
+        return $this->hasMany(NilaiKriteriaPerengkinganModel::class, 'wisata_kode', 'kode');
+    }
 }

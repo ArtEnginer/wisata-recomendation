@@ -65,18 +65,15 @@ class AuthGroups extends ShieldAuthGroups
             'title'       => 'Guru',
             'description' => 'Guru',
         ],
-        'karyawan' => [
-            'title'       => 'karyawan',
-            'description' => 'karyawan',
+        'pimpinan' => [
+            'title'       => 'pimpinan',
+            'description' => 'pimpinan',
         ],
-        'teknisi' => [
-            'title'       => 'teknisi',
-            'description' => 'teknisi',
+        'wisatawan' => [
+            'title'       => 'wisatawan',
+            'description' => 'wisatawan',
         ],
-        'hrd' => [
-            'title'       => 'HRD',
-            'description' => 'HRD',
-        ],
+
     ];
 
     /**
@@ -99,17 +96,14 @@ class AuthGroups extends ShieldAuthGroups
         'guru.access'         => 'Can access the sites guru area',
         'guru.settings'       => 'Can access the main site settings for guru',
 
-        // karyawan
-        'karyawan.access'     => 'Can access the sites karyawan area',
-        'karyawan.settings'   => 'Can access the main site settings for karyawan',
+        // pimpinan
+        'pimpinan.access'     => 'Can access the sites pimpinan area',
+        'pimpinan.settings'   => 'Can access the main site settings for pimpinan',
 
-        // teknisi
-        'teknisi.access'      => 'Can access the sites teknisi area',
-        'teknisi.settings'    => 'Can access the main site settings for teknisi',
+        // wisatawan
+        'wisatawan.access'      => 'Can access the sites wisatawan area',
+        'wisatawan.settings'    => 'Can access the main site settings for wisatawan',
 
-        // hrd
-        'hrd.access'          => 'Can access the sites hrd area',
-        'hrd.settings'        => 'Can access the main site settings for hrd',
 
     ];
 
@@ -149,17 +143,14 @@ class AuthGroups extends ShieldAuthGroups
             'guru.access',
             'guru.settings',
         ],
-        'karyawan' => [
-            'karyawan.access',
-            'karyawan.settings',
+        'pimpinan' => [
+            'pimpinan.access',
+            'pimpinan.settings',
         ],
-        'teknisi' => [
-            'teknisi.access',
-            'teknisi.settings',
+        'wisatawan' => [
+            'wisatawan.access',
+            'wisatawan.settings',
         ],
-        'hrd' => [
-            'hrd.access',
-            'hrd.settings',
-        ],
+
     ];
 }
