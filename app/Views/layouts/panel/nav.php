@@ -5,8 +5,7 @@
         </b></h1>
 
     <h3><b>
-            <?= auth()->user()->inGroup('admin') ? 'Admin' : (auth()->user()->inGroup('hrd') ? 'HRD' : (auth()->user()->inGroup('teknisi') ? 'Teknisi
-            ' : (auth()->user()->inGroup('karyawan') ? 'Karyawan' : (auth()->user()->inGroup('guru') ? 'Guru' : 'User')))) ?>
+            <?= auth()->user()->inGroup('admin') ? 'Admin' : (auth()->user()->inGroup('pimpinan') ? 'PIMPINAN' : 'WISATAWAN') ?>
         </b></h3>
 </div>
 <div class="nav-list">

@@ -109,4 +109,4 @@
 <script src="/js/tailwind.js"></script>
 
 
-<title>SIASET</title>
+<title>WISATA</title>

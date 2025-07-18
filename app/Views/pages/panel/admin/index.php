@@ -9,10 +9,13 @@
             <div class="col s12">
                 <ul class="tabs">
                     <li class="tab col s2"><a href="#map-tab">Peta</a></li>
-                    <li class="tab col s3"><a href="#cluster-tab">Klasterisasi</a></li>
+                    <li class="tab col s2"><a href="#cluster-tab">Klasterisasi</a></li>
                     <li class="tab col s2"><a href="#distance-tab">Jarak</a></li>
-                    <li class="tab col s3"><a href="#recommend-tab">Rekomendasi</a></li>
+                    <li class="tab col s2"><a href="#recommend-tab">Rekomendasi</a></li>
                     <li class="tab col s2"><a href="#accuracy-tab">Akurasi</a></li>
+                    <?php if (auth()->user()->inGroup('pimpinan')) : ?>
+                        <li class="tab col s2"><a href="#laporan-tab">Laporan</a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
 
@@ -54,6 +57,13 @@
 
             <div id="accuracy-tab" class="col s12">
                 <canvas id="accuracyChart" height="100"></canvas>
+            </div>
+
+            <div id="laporan-tab" class="col s12">
+                <a class="waves-effect waves-light btn red" id="btn-generate-report">Generate Laporan</a>
+                <div id="report-results" class="section"></div>
+                <div id="report-details" class="card-panel grey lighten-3"></div>
+                <div id="report-download" class="section"></div>
             </div>
         </div>
     </div>

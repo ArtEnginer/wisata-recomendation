@@ -53,15 +53,13 @@
     <?php if (auth()->user()->inGroup('admin')) : ?>
         <script src="<?= base_url("js/pages/panel/admin/$page.js?timestamp=" . time()) ?>"></script>
     <?php endif; ?>
-    <?php if (auth()->user()->inGroup('hrd')) : ?>
-        <script src="<?= base_url("js/pages/panel/hrd/$page.js?timestamp=" . time()) ?>"></script>
+    <?php if (auth()->user()->inGroup('pimpinan')) : ?>
+        <script src="<?= base_url("js/pages/panel/pimpinan/$page.js?timestamp=" . time()) ?>"></script>
     <?php endif; ?>
-    <?php if (auth()->user()->inGroup('teknisi')) : ?>
-        <script src="<?= base_url("js/pages/panel/teknisi/$page.js?timestamp=" . time()) ?>"></script>
+    <?php if (auth()->user()->inGroup('wisatawan')) : ?>
+        <script src="<?= base_url("js/pages/panel/wisatawan/$page.js?timestamp=" . time()) ?>"></script>
     <?php endif; ?>
-    <?php if (auth()->user()->inGroup('karyawan')) : ?>
-        <script src="<?= base_url("js/pages/panel/karyawan/$page.js?timestamp=" . time()) ?>"></script>
-    <?php endif; ?>
+
     <?= $this->renderSection('script') ?>
 </body>
 
