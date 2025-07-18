@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-6 text-end">
                     <button class="btn waves-effect waves-light green btn-popup" data-target="add" type="button" data-target="form"><i class="material-icons left">add</i>Nilai</button>
-                    <button class="btn waves-effect waves-light red" data-target="clustering" type="button"><i class="material-icons left">class</i>Clustering</button>
+                    <!-- <button class="btn waves-effect waves-light red" data-target="clustering" type="button"><i class="material-icons left">class</i>Clustering</button> -->
                 </div>
 
             </div>

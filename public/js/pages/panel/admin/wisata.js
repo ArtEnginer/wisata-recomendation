@@ -23,7 +23,6 @@ const table = {
       { title: "Deskripsi", data: "deskripsi" },
       { title: "Latitude", data: "latitude" },
       { title: "Longitude", data: "longitude" },
-      { title: "Klaster", data: "klaster" },
       {
         title: "Gambar",
         data: "gambar",

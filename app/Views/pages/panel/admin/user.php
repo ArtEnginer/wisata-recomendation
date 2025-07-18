@@ -67,9 +67,8 @@
                             <select name="role" id="role" required>
                                 <option value="" disabled selected>Pilih Role</option>
                                 <option value="admin">ADMIN</option>
-                                <option value="hrd">HRD</option>
-                                <option value="teknisi">TEKNISI</option>
-                                <option value="karyawan">KARYAWAN</option>
+                                <option value="pimpinan">Pimpinan</option>
+                                <option value="wisatawan">Wisatawan</option>
                             </select>
                             <label>Role</label>
                         </div>

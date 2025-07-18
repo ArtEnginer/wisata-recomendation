@@ -58,6 +58,13 @@ $(document).ready(function () {
           $("#location-name").val(name);
         });
     });
+
+    // Plot wisata setelah peta siap
+    setTimeout(() => {
+      if (wisataData.length > 0) {
+        plotWisataOnMap(wisataData);
+      }
+    }, 1000);
   }
 
   initMap();
@@ -105,10 +112,15 @@ $(document).ready(function () {
     .then((wisata) => {
       wisataData = wisata;
       console.log("Wisata data loaded", wisata);
+
+      // Plot wisata immediately after load
       plotWisataOnMap(wisata);
 
       // Pre-calculate distance matrix
       distanceMatrix = floydWarshall(wisataData);
+
+      // Juga plot setelah peta siap (double safeguard)
+      setTimeout(() => plotWisataOnMap(wisata), 500);
     });
 
   cloud
@@ -131,18 +143,28 @@ $(document).ready(function () {
 
   // Plot wisata on map
   function plotWisataOnMap(wisata) {
-    // Clear existing markers
-    markers.forEach((marker) => map.removeLayer(marker));
+    if (!map || !wisata || wisata.length === 0) return;
+
+    // Clear existing markers hanya jika ada
+    if (markers.length > 0) {
+      markers.forEach((marker) => map.removeLayer(marker));
+    }
     markers = [];
 
+    // Tambahkan pengecekan koordinat valid
     wisata.forEach((item) => {
-      const marker = L.marker(
-        [parseFloat(item.latitude), parseFloat(item.longitude)],
-        {
-          icon: getClusterIcon(item.klaster),
-          riseOnHover: true,
-        }
-      )
+      const lat = parseFloat(item.latitude);
+      const lng = parseFloat(item.longitude);
+
+      if (isNaN(lat) || isNaN(lng)) {
+        console.error("Invalid coordinates for", item.nama);
+        return;
+      }
+
+      const marker = L.marker([lat, lng], {
+        icon: getDefaultIcon(), // Gunakan icon default sebelum clustering
+        riseOnHover: true,
+      })
         .addTo(map)
         .bindPopup(`<b>${item.nama}</b><br>${item.deskripsi}`);
 
@@ -150,12 +172,10 @@ $(document).ready(function () {
     });
   }
 
-  // Get icon based on cluster
-  function getClusterIcon(klaster) {
-    const colors = ["red", "blue", "green"]; // 0: tinggi, 1: sedang, 2: rendah
+  function getDefaultIcon() {
     return L.divIcon({
-      className: "cluster-icon",
-      html: `<div style="background-color: ${colors[klaster]}; width: 20px; height: 20px; border-radius: 50%;"></div>`,
+      className: "default-icon",
+      html: '<div style="background-color: green; width: 20px; height: 20px; border-radius: 50%;"></div>',
       iconSize: [20, 20],
     });
   }
@@ -401,8 +421,17 @@ $(document).ready(function () {
     const next = Array(n)
       .fill()
       .map(() => Array(n).fill(null));
+    const steps = []; // To store calculation steps
 
     // Initialize distances and next pointers
+    steps.push({
+      title: "Inisialisasi",
+      description:
+        "Mengisi matriks jarak awal dengan nilai tak terhingga dan matriks next dengan null",
+      dist: JSON.parse(JSON.stringify(dist)),
+      next: JSON.parse(JSON.stringify(next)),
+    });
+
     for (let i = 0; i < n; i++) {
       dist[i][i] = 0;
       for (let j = i + 1; j < n; j++) {
@@ -419,22 +448,117 @@ $(document).ready(function () {
       }
     }
 
+    steps.push({
+      title: "Set Jarak Awal",
+      description:
+        "Menghitung jarak langsung antar lokasi menggunakan formula Haversine",
+      dist: JSON.parse(JSON.stringify(dist)),
+      next: JSON.parse(JSON.stringify(next)),
+    });
+
     // Floyd-Warshall algorithm
     for (let k = 0; k < n; k++) {
+      const stepChanges = [];
+
       for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
           if (dist[i][j] > dist[i][k] + dist[k][j]) {
+            const oldDist = dist[i][j];
             dist[i][j] = dist[i][k] + dist[k][j];
             next[i][j] = next[i][k];
+
+            stepChanges.push({
+              i: i,
+              j: j,
+              k: k,
+              oldDist: oldDist,
+              newDist: dist[i][j],
+              path: getPath(i, j, next),
+            });
           }
         }
       }
+
+      if (stepChanges.length > 0) {
+        steps.push({
+          title: `Iterasi k = ${k} (${locations[k].nama || "Lokasi " + k})`,
+          description: "Memperbarui jarak terpendek melalui node perantara",
+          changes: [...stepChanges],
+          dist: JSON.parse(JSON.stringify(dist)),
+          next: JSON.parse(JSON.stringify(next)),
+        });
+      }
     }
+
+    steps.push({
+      title: "Hasil Final",
+      description: "Matriks jarak terpendek setelah semua iterasi",
+      dist: JSON.parse(JSON.stringify(dist)),
+      next: JSON.parse(JSON.stringify(next)),
+    });
 
     return {
       distances: dist,
       next: next,
+      steps: steps,
     };
+  }
+
+  function showFloydWarshallDetails(result, locations) {
+    let html = "<h4>Detail Perhitungan Floyd-Warshall</h4>";
+
+    result.steps.forEach((step, index) => {
+      html += `<div class="card-panel grey lighten-4"><h5>${step.title}</h5>`;
+      html += `<p>${step.description}</p>`;
+
+      if (step.changes) {
+        html += "<h6>Perubahan Jarak:</h6>";
+        html +=
+          '<table class="striped"><thead><tr><th>Dari</th><th>Ke</th><th>Melalui</th><th>Jarak Lama</th><th>Jarak Baru</th><th>Path</th></tr></thead><tbody>';
+
+        step.changes.forEach((change) => {
+          html += `<tr>
+                    <td>${locations[change.i].nama || "Lokasi " + change.i}</td>
+                    <td>${locations[change.j].nama || "Lokasi " + change.j}</td>
+                    <td>${locations[change.k].nama || "Lokasi " + change.k}</td>
+                    <td>${change.oldDist.toFixed(2)} km</td>
+                    <td>${change.newDist.toFixed(2)} km</td>
+                    <td>${change.path
+                      .map((p) => locations[p].nama || p)
+                      .join(" → ")}</td>
+                </tr>`;
+        });
+
+        html += "</tbody></table>";
+      }
+
+      if (index === 1 || index === result.steps.length - 1) {
+        html += "<h6>Matriks Jarak:</h6>";
+        html +=
+          '<div style="overflow: auto;"><table class="striped"><thead><tr><th></th>';
+
+        // Header row
+        locations.forEach((loc, i) => {
+          html += `<th>${loc.nama || i}</th>`;
+        });
+        html += "</tr></thead><tbody>";
+
+        // Data rows
+        step.dist.forEach((row, i) => {
+          html += `<tr><td><strong>${locations[i].nama || i}</strong></td>`;
+          row.forEach((val) => {
+            html += `<td>${val === Infinity ? "∞" : val.toFixed(2)}</td>`;
+          });
+          html += "</tr>";
+        });
+
+        html += "</tbody></table></div>";
+      }
+
+      html += "</div>";
+    });
+
+    return html;
   }
 
   // Get path from node u to node v
@@ -690,8 +814,14 @@ $(document).ready(function () {
       },
     ];
 
+    console.log(tempLocations);
+
     // Recalculate distance matrix with user location
-    const { distances, next } = floydWarshall(tempLocations);
+    const result = floydWarshall(tempLocations);
+    distanceMatrix = {
+      distances: result.distances,
+      next: result.next,
+    };
 
     const userLocationIndex = wisataData.length; // Last index is user location
     const clusterNames = ["Tinggi", "Sedang", "Rendah"];
@@ -700,29 +830,54 @@ $(document).ready(function () {
     clearRouteLines();
 
     // Show distance results with route visualization buttons
-    let html =
-      '<h4>Jarak ke Wisata</h4><table class="table table-bordered"><thead><tr><th>No</th><th>Wisata</th><th>Klaster</th><th>Jarak (km)</th><th>Aksi</th></tr></thead><tbody>';
+    let html = "<h4>Jarak ke Wisata</h4>";
+
+    // Add button to show calculation details
+    html +=
+      '<a class="waves-effect waves-light btn blue" id="btn-show-fw-calculation">Tampilkan Perhitungan Floyd-Warshall</a>';
+    html +=
+      '<div id="fw-calculation-details" class="section" style="display:none;"></div>';
+
+    html +=
+      '<table class="table table-bordered"><thead><tr><th>No</th><th>Wisata</th><th>Klaster</th><th>Jarak (km)</th><th>Aksi</th></tr></thead><tbody>';
 
     wisataData.forEach((item, index) => {
-      const distance = distances[userLocationIndex][index];
+      const distance = result.distances[userLocationIndex][index];
       html += `<tr>
-        <td>${index + 1}</td>
-        <td>${item.nama}</td>
-        <td>${clusterNames[parseInt(item.klaster)]}</td>
-        <td>${distance.toFixed(2)}</td>
-        <td><button class="btn btn-sm btn-info btn-show-route" data-index="${index}">Tampilkan Rute</button></td>
-      </tr>`;
+            <td>${index + 1}</td>
+            <td>${item.nama}</td>
+            <td>${clusterNames[parseInt(item.klaster)]}</td>
+            <td>${distance.toFixed(2)}</td>
+            <td><button class="btn btn-sm btn-info btn-show-route" data-index="${index}">Tampilkan Rute</button></td>
+        </tr>`;
     });
 
     html += "</tbody></table>";
     $("#distance-results").html(html);
 
-    // Store distances for ranking
-    distanceMatrix = { distances, next };
-
-    console.log("Shortest paths calculated", distances);
+    // Store the calculation details for later display
+    $("#distance-results").data("fw-details", {
+      result: result,
+      locations: tempLocations,
+    });
   });
 
+  // Add handler for showing Floyd-Warshall calculation details
+  $(document).on("click", "#btn-show-fw-calculation", function () {
+    const details = $("#distance-results").data("fw-details");
+    if (!details) return;
+
+    const html = showFloydWarshallDetails(details.result, details.locations);
+    $("#fw-calculation-details").html(html).slideDown();
+
+    // Scroll to the details
+    $("html, body").animate(
+      {
+        scrollTop: $("#fw-calculation-details").offset().top - 20,
+      },
+      500
+    );
+  });
   // Handle route visualization button clicks
   $(document).on("click", ".btn-show-route", function () {
     const wisataIndex = $(this).data("index");
