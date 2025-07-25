@@ -60,7 +60,7 @@
             </div>
 
             <div id="laporan-tab" class="col s12">
-                <a class="waves-effect waves-light btn red" id="btn-generate-report">Generate Laporan</a>
+                <!-- <a class="waves-effect waves-light btn red" id="btn-generate-report">Generate Laporan</a> -->
                 <div id="report-results" class="section"></div>
                 <div id="report-details" class="card-panel grey lighten-3"></div>
                 <div id="report-download" class="section"></div>

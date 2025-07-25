@@ -19,7 +19,7 @@ $(document).ready(function () {
 
   // Initialize map with OpenStreetMap and Nominatim for geocoding
   function initMap() {
-    map = L.map("map").setView([-7.123456, 112.123456], 10);
+    map = L.map("map").setView([-7.5838902875197, 110.81321640838382], 14);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
