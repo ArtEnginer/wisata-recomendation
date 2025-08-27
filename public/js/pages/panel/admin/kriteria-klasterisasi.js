@@ -2,7 +2,7 @@ const table = {
   kriteria_klasterisasi: $("#table-kriteria-klasterisasi").DataTable({
     responsive: true,
     ajax: {
-      url: origin + "/api/kriteria-klasterisasi",
+      url: baseUrl + "/api/kriteria-klasterisasi",
       dataSrc: "",
     },
     order: [
@@ -47,7 +47,7 @@ $("form#form-add").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/kriteria-klasterisasi",
+    url: baseUrl + "/api/kriteria-klasterisasi",
     data: formData,
     contentType: false, // WAJIB agar FormData bekerja
     processData: false, // WAJIB agar FormData tidak diubah jadi query string
@@ -89,7 +89,7 @@ $("body").on("click", ".btn-action", function (e) {
         if (result.isConfirmed) {
           $.ajax({
             type: "DELETE",
-            url: origin + "/api/kriteria-klasterisasi/" + id,
+            url: baseUrl + "/api/kriteria-klasterisasi/" + id,
             cache: false,
             success: (data) => {
               table.kriteria_klasterisasi.ajax.reload();
@@ -140,7 +140,7 @@ $("form#form-edit").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/kriteria-klasterisasi/" + data.id,
+    url: baseUrl + "/api/kriteria-klasterisasi/" + data.id,
     data: data,
     cache: false,
     success: (data) => {
@@ -173,7 +173,7 @@ $("body").on("keyup", "#form-edit input[name=nama]", function (e) {
 
 $(document).ready(function () {
   cloud
-    .add(origin + "/api/kriteria-klasterisasi", {
+    .add(baseUrl + "/api/kriteria-klasterisasi", {
       name: "kriteria-klasterisasi",
       callback: (data) => {
         table.kriteria_klasterisasi.ajax.reload();

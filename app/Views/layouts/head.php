@@ -3,10 +3,10 @@
         font-family: "Material Icons";
         font-style: normal;
         font-weight: 400;
-        src: local("Material Icons"), local("MaterialIcons-Regular"), url("/fonts/MaterialIcons-Regular.ttf") format("truetype"),
-            url("/fonts/MaterialSymbolsOutlined[FILL, GRAD, opsz, wght].woff2") format("woff2"), url("/fonts/MaterialSymbolsOutlined[FILL, GRAD, opsz, wght].ttf") format("truetype"),
-            url("/fonts/MaterialSymbolsRounded[FILL, GRAD, opsz, wght].woff2") format("woff2"), url("/fonts/MaterialSymbolsRounded[FILL, GRAD, opsz, wght].ttf") format("truetype"),
-            url("/fonts/MaterialSymbolsSharp[FILL, GRAD, opsz, wght].woff2") format("woff2"), url("/fonts/MaterialSymbolsSharp[FILL, GRAD, opsz, wght].ttf") format("truetype");
+        src: local("Material Icons"), local("MaterialIcons-Regular"), url("<?= base_url() ?>fonts/MaterialIcons-Regular.ttf") format("truetype"),
+            url("<?= base_url() ?>fonts/MaterialSymbolsOutlined[FILL, GRAD, opsz, wght].woff2") format("woff2"), url("<?= base_url() ?>fonts/MaterialSymbolsOutlined[FILL, GRAD, opsz, wght].ttf") format("truetype"),
+            url("<?= base_url() ?>fonts/MaterialSymbolsRounded[FILL, GRAD, opsz, wght].woff2") format("woff2"), url("<?= base_url() ?>fonts/MaterialSymbolsRounded[FILL, GRAD, opsz, wght].ttf") format("truetype"),
+            url("<?= base_url() ?>fonts/MaterialSymbolsSharp[FILL, GRAD, opsz, wght].woff2") format("woff2"), url("<?= base_url() ?>fonts/MaterialSymbolsSharp[FILL, GRAD, opsz, wght].ttf") format("truetype");
     }
 
     .material-icons {
@@ -106,7 +106,7 @@
 <!--Let browser know website is optimized for mobile-->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<script src="/js/tailwind.js"></script>
+<script src="<?= base_url() ?>js/tailwind.js"></script>
 
 
 <title>WISATA</title>

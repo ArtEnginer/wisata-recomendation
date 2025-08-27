@@ -2,7 +2,7 @@ const table = {
   kriteria_perengkingan: $("#table-kriteria-perengkingan").DataTable({
     responsive: true,
     ajax: {
-      url: origin + "/api/kriteria-perengkingan",
+      url: baseUrl + "/api/kriteria-perengkingan",
       dataSrc: "",
     },
     order: [
@@ -63,7 +63,7 @@ $("form#form-add").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/kriteria-perengkingan",
+    url: baseUrl + "/api/kriteria-perengkingan",
     data: formData,
     contentType: false, // WAJIB agar FormData bekerja
     processData: false, // WAJIB agar FormData tidak diubah jadi query string
@@ -105,7 +105,7 @@ $("body").on("click", ".btn-action", function (e) {
         if (result.isConfirmed) {
           $.ajax({
             type: "DELETE",
-            url: origin + "/api/kriteria-perengkingan/" + id,
+            url: baseUrl + "/api/kriteria-perengkingan/" + id,
             cache: false,
             success: (data) => {
               table.kriteria_perengkingan.ajax.reload();
@@ -156,7 +156,7 @@ $("form#form-edit").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/kriteria-perengkingan/" + data.id,
+    url: baseUrl + "/api/kriteria-perengkingan/" + data.id,
     data: data,
     cache: false,
     success: (data) => {
@@ -189,7 +189,7 @@ $("body").on("keyup", "#form-edit input[name=nama]", function (e) {
 
 $(document).ready(function () {
   cloud
-    .add(origin + "/api/kriteria-perengkingan", {
+    .add(baseUrl + "/api/kriteria-perengkingan", {
       name: "kriteria-perengkingan",
       callback: (data) => {
         table.kriteria_perengkingan.ajax.reload();

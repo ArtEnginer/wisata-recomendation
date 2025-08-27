@@ -3,14 +3,14 @@
     rel="stylesheet">
 <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
-<link rel="stylesheet" href="/css/air-datepicker.min.css">
-<link type="text/css" rel="stylesheet" href="/css/aos.css" />
-<link type="text/css" rel="stylesheet" href="/css/animsition.min.css" />
-<link type="text/css" rel="stylesheet" href="/assets/fontawesome6/css/all.css" />
-<link type="text/css" rel="stylesheet" href="/css/lightbox.min.css" />
-<link type="text/css" rel="stylesheet" href="/assets/leaflet/leaflet.css" />
-<link type="text/css" rel="stylesheet" href="/assets/leaflet/Leaflet.AnimatedSearchBox.css" />
-<link type="text/css" rel="stylesheet" href="/css/fancybox.css" />
+<link rel="stylesheet" href="<?= base_url() ?>css/air-datepicker.min.css">
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>css/aos.css" />
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>css/animsition.min.css" />
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>assets/fontawesome6/css/all.css" />
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>css/lightbox.min.css" />
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>assets/leaflet/leaflet.css" />
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>assets/leaflet/Leaflet.AnimatedSearchBox.css" />
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>css/fancybox.css" />
 <!-- Leaflet -->
 <!-- Leaflet CSS & JS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -22,4 +22,4 @@
 
 
 
-<link type="text/css" rel="stylesheet" href="/css/main.css?timestamp=<?= time() ?>" />
+<link type="text/css" rel="stylesheet" href="<?= base_url() ?>css/main.css?timestamp=<?= time() ?>" />

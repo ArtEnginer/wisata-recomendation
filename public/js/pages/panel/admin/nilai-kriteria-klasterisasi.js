@@ -4,13 +4,13 @@ $(document).ready(function () {
   // Ambil data wisata & kriteria
   $(".modal").modal();
   Promise.all([
-    cloud.add(origin + "/api/wisata", {
+    cloud.add(baseUrl + "/api/wisata", {
       name: "wisata",
     }),
-    cloud.add(origin + "/api/kriteria-klasterisasi", {
+    cloud.add(baseUrl + "/api/kriteria-klasterisasi", {
       name: "kriteria-klasterisasi",
     }),
-    cloud.add(origin + "/api/nilai-kriteria-klasterisasi", {
+    cloud.add(baseUrl + "/api/nilai-kriteria-klasterisasi", {
       name: "nilai-kriteria-klasterisasi",
       callback: () => {
         if (table.nilai_kriteria_klasterisasi) {
@@ -59,7 +59,7 @@ $(document).ready(function () {
     ).DataTable({
       responsive: true,
       ajax: {
-        url: origin + "/api/nilai-kriteria-klasterisasi/grouped",
+        url: baseUrl + "/api/nilai-kriteria-klasterisasi/grouped",
         dataSrc: "",
       },
       columns: columns,
@@ -107,7 +107,7 @@ $("#form-add").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/nilai-kriteria-klasterisasi",
+    url: baseUrl + "/api/nilai-kriteria-klasterisasi",
     data: formData,
     processData: false,
     contentType: false,
@@ -177,7 +177,7 @@ $("#form-edit").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/nilai-kriteria-klasterisasi/update",
+    url: baseUrl + "/api/nilai-kriteria-klasterisasi/update",
     data: formData,
     processData: false,
     contentType: false,
@@ -196,7 +196,7 @@ $("#form-edit").on("submit", function (e) {
 });
 $("body").on("click", '[data-target="clustering"]', function () {
   $.ajax({
-    url: origin + "/api/wisata/clustering",
+    url: baseUrl + "/api/wisata/clustering",
     method: "GET",
     success: function (res) {
       const { log, assignments, normalisasi } = res;
@@ -206,14 +206,14 @@ $("body").on("click", '[data-target="clustering"]', function () {
       // Show normalization details
       html += `<h4>Normalisasi Data</h4>`;
       html += `<p>Normalisasi dilakukan dengan membagi setiap nilai dengan nilai maksimum per kriteria</p>`;
-      html += `<table class="striped"><thead><tr><th>No</th><th>Kode</th><th>Nama</th><th>Original</th><th>Normalized</th></tr></thead><tbody>`;
+      html += `<table class="striped"><thead><tr><th>No</th><th>Kode</th><th>Nama</th><th>baseUrlal</th><th>Normalized</th></tr></thead><tbody>`;
 
       normalisasi.forEach((item) => {
         html += `<tr>
           <td>${item.no}</td>
           <td>${item.kode}</td>
           <td>${item.nama}</td>
-          <td>[${item.original.map((v) => v.toFixed(2)).join(", ")}]</td>
+          <td>[${item.baseUrlal.map((v) => v.toFixed(2)).join(", ")}]</td>
           <td>[${item.normalized.map((v) => v.toFixed(4)).join(", ")}]</td>
         </tr>`;
       });

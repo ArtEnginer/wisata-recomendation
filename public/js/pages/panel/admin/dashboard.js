@@ -106,7 +106,7 @@ $(document).ready(function () {
 
   // Load data
   cloud
-    .add(origin + "/api/wisata", {
+    .add(baseUrl + "/api/wisata", {
       name: "wisata",
     })
     .then((wisata) => {
@@ -124,7 +124,7 @@ $(document).ready(function () {
     });
 
   cloud
-    .add(origin + "/api/kriteria-perengkingan", {
+    .add(baseUrl + "/api/kriteria-perengkingan", {
       name: "kriteria-perengkingan",
     })
     .then((kriteria) => {
@@ -133,7 +133,7 @@ $(document).ready(function () {
     });
 
   cloud
-    .add(origin + "/api/kriteria-klasterisasi", {
+    .add(baseUrl + "/api/kriteria-klasterisasi", {
       name: "kriteria-klasterisasi",
     })
     .then((kriteria) => {
@@ -1199,14 +1199,14 @@ $(document).ready(function () {
 
     // Add wisata markers with rank indicators
     recommendations.forEach((item) => {
-      const originalItem = wisataData.find((w) => w.kode === item.kode);
+      const baseUrlalItem = wisataData.find((w) => w.kode === item.kode);
       const marker = L.marker(
-        [parseFloat(originalItem.latitude), parseFloat(originalItem.longitude)],
+        [parseFloat(baseUrlalItem.latitude), parseFloat(baseUrlalItem.longitude)],
         {
           icon: L.divIcon({
             className: "rank-icon",
             html: `<div style="background-color: ${getClusterColor(
-              originalItem.klaster
+              baseUrlalItem.klaster
             )}; 
                  width: 24px; height: 24px; border-radius: 50%; 
                  display: flex; align-items: center; justify-content: center;
@@ -1215,9 +1215,9 @@ $(document).ready(function () {
           }),
           riseOnHover: true,
         }
-      ).addTo(map).bindPopup(`<b>${originalItem.nama}</b><br>
+      ).addTo(map).bindPopup(`<b>${baseUrlalItem.nama}</b><br>
                    Rank: ${item.rank}<br>
-                   Klaster: ${getClusterName(originalItem.klaster)}<br>
+                   Klaster: ${getClusterName(baseUrlalItem.klaster)}<br>
                    Jarak: ${
                      item.distance ? item.distance.toFixed(2) + " km" : "-"
                    }<br>

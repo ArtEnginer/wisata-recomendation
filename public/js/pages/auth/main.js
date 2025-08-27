@@ -30,7 +30,7 @@ $("body").on("submit", "form#login", function (e) {
   // $(".preloader").slideDown();
   $.ajax({
     type: "POST",
-    url: origin + "/login",
+    url: baseUrl + "/login",
     data: data,
     cache: false,
     success: async function (response) {
@@ -78,7 +78,7 @@ $("body").on("submit", "form#register", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/register",
+    url: baseUrl + "/api/register",
     data: data,
     success: async function (response) {
       // $(".preloader").slideUp();

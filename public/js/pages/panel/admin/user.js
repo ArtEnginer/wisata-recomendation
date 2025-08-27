@@ -3,7 +3,7 @@ const table = {
   user: $("#table-user").DataTable({
     responsive: true,
     ajax: {
-      url: origin + "/api/user",
+      url: baseUrl + "/api/user",
       dataSrc: "",
     },
     columns: [
@@ -67,7 +67,7 @@ $("form#form-user").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/user",
+    url: baseUrl + "/api/user",
     data: data,
     cache: false,
     success: (data) => {
@@ -107,7 +107,7 @@ $("form#form-edit").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "api/user/update/" + data.id,
+    url: baseUrl + "api/user/update/" + data.id,
     data: data,
     cache: false,
     success: (data) => {
@@ -151,8 +151,8 @@ $("form#form-password").on("submit", function (e) {
   for (let i = 0, len = elements.length; i < len; ++i) {
     elements[i].readOnly = true;
   }
-  const origin = window.location.origin + "/"; // pastikan origin valid
-  const url = origin + "api/user/update/" + data.id;
+  const baseUrl = window.location.baseUrl + "/"; // pastikan baseUrl valid
+  const url = baseUrl + "api/user/update/" + data.id;
   $.ajax({
     type: "POST",
     url: url,
@@ -197,7 +197,7 @@ $("body").on("click", ".btn-action", function (e) {
         if (result.isConfirmed) {
           $.ajax({
             type: "DELETE",
-            url: origin + "/api/user/" + id,
+            url: baseUrl + "/api/user/" + id,
             cache: false,
             success: (data) => {
               table.user.ajax.reload();
@@ -231,7 +231,7 @@ $("body").on("click", ".btn-action", function (e) {
       data = { id: id };
       $.ajax({
         type: "POST",
-        url: origin + "/api/user/activate",
+        url: baseUrl + "/api/user/activate",
         data: data,
         cache: false,
         success: (data) => {
@@ -251,7 +251,7 @@ $("body").on("click", ".btn-action", function (e) {
       data = { id: id };
       $.ajax({
         type: "POST",
-        url: origin + "/api/user/deactivate",
+        url: baseUrl + "/api/user/deactivate",
         data: data,
         cache: false,
         success: (data) => {
@@ -273,7 +273,7 @@ $("body").on("click", ".btn-action", function (e) {
 
 $(document).ready(function () {
   cloud
-    .add(origin + "/api/user", {
+    .add(baseUrl + "/api/user", {
       name: "user",
       callback: (data) => {
         table.user.ajax.reload();

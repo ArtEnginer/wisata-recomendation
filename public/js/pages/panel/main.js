@@ -10,7 +10,7 @@ $("body").on("click", ".btn-logout", function (e) {
     cancelButtonText: "Batal",
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = "/logout";
+      window.location.href = baseUrl + "/logout";
     }
   });
 });
@@ -42,10 +42,12 @@ $("body").on("click", ".nav-close", function (e) {
   $(".nav-wrapper").removeClass("open");
 });
 
-$.each($(".popup"), function (i, popup) { 
+$.each($(".popup"), function (i, popup) {
   const content = popup.innerHTML;
   $(this).empty();
-  $(this).append(`<div class="popup-nav"><a class="btn-popup-close"><i class="fas fa-times"></i></a></div>`);
+  $(this).append(
+    `<div class="popup-nav"><a class="btn-popup-close"><i class="fas fa-times"></i></a></div>`
+  );
   $(this).append(`<div class="popup-content">${content}</div>`);
 });
 

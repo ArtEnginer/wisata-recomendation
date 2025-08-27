@@ -4,13 +4,13 @@ $(document).ready(function () {
   // Ambil data wisata & kriteria
   $(".modal").modal();
   Promise.all([
-    cloud.add(origin + "/api/wisata", {
+    cloud.add(baseUrl + "/api/wisata", {
       name: "wisata",
     }),
-    cloud.add(origin + "/api/kriteria-perengkingan", {
+    cloud.add(baseUrl + "/api/kriteria-perengkingan", {
       name: "kriteria-perengkingan",
     }),
-    cloud.add(origin + "/api/nilai-kriteria-perengkingan", {
+    cloud.add(baseUrl + "/api/nilai-kriteria-perengkingan", {
       name: "nilai-kriteria-perengkingan",
       callback: () => {
         if (table.nilai_kriteria_perengkingan) {
@@ -59,7 +59,7 @@ $(document).ready(function () {
     ).DataTable({
       responsive: true,
       ajax: {
-        url: origin + "/api/nilai-kriteria-perengkingan/grouped",
+        url: baseUrl + "/api/nilai-kriteria-perengkingan/grouped",
         dataSrc: "",
       },
       columns: columns,
@@ -107,7 +107,7 @@ $("#form-add").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/nilai-kriteria-perengkingan",
+    url: baseUrl + "/api/nilai-kriteria-perengkingan",
     data: formData,
     processData: false,
     contentType: false,
@@ -177,7 +177,7 @@ $("#form-edit").on("submit", function (e) {
 
   $.ajax({
     type: "POST",
-    url: origin + "/api/nilai-kriteria-perengkingan/update",
+    url: baseUrl + "/api/nilai-kriteria-perengkingan/update",
     data: formData,
     processData: false,
     contentType: false,
