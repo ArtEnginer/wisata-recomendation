@@ -16,6 +16,7 @@ $(document).ready(function () {
   let routeLines = [];
   let geocoder;
   let recommendations = []; // Add this at the top with other variable declarations
+  let selectedCentroids = []; // Add this to store manually selected centroids
 
   // Initialize map with OpenStreetMap and Nominatim for geocoding
   function initMap() {
@@ -180,8 +181,13 @@ $(document).ready(function () {
     });
   }
 
-  // K-Means Clustering implementation with detailed steps
-  function kMeansClustering(data, k = 3, maxIterations = 100) {
+  // K-Means Clustering implementation with manual centroid selection
+  function kMeansClustering(
+    data,
+    k = 3,
+    maxIterations = 100,
+    manualCentroids = null
+  ) {
     // Extract features for clustering
     const features = data.map((item) => {
       return item.nilai_kriteria_klasterisasi.map((nilai) =>
@@ -189,14 +195,20 @@ $(document).ready(function () {
       );
     });
 
-    // Step 1: Initialize centroids randomly
+    // Step 1: Initialize centroids - use manual selection if provided
     let centroids = [];
-    const randomIndices = [];
-    while (randomIndices.length < k) {
-      const randomIndex = Math.floor(Math.random() * data.length);
-      if (!randomIndices.includes(randomIndex)) {
-        randomIndices.push(randomIndex);
-        centroids.push([...features[randomIndex]]);
+    if (manualCentroids && manualCentroids.length === k) {
+      // Use manually selected centroids
+      centroids = manualCentroids.map((index) => [...features[index]]);
+    } else {
+      // Fallback to random selection
+      const randomIndices = [];
+      while (randomIndices.length < k) {
+        const randomIndex = Math.floor(Math.random() * data.length);
+        if (!randomIndices.includes(randomIndex)) {
+          randomIndices.push(randomIndex);
+          centroids.push([...features[randomIndex]]);
+        }
       }
     }
 
@@ -205,11 +217,18 @@ $(document).ready(function () {
     let iterations = 0;
     let steps = [];
 
+    const centroidSelection = manualCentroids
+      ? manualCentroids.map((index) => data[index].nama).join(", ")
+      : "Acak";
+
     steps.push({
       title: "Inisialisasi Awal",
-      description: `Memilih ${k} centroid acak dari data:`,
+      description: `Memilih ${k} centroid (${centroidSelection}):`,
       centroids: [...centroids],
       clusters: [...clusters],
+      selectedWisata: manualCentroids
+        ? manualCentroids.map((index) => data[index].nama)
+        : null,
     });
 
     while (!arraysEqual(clusters, prevClusters) && iterations < maxIterations) {
@@ -617,22 +636,163 @@ $(document).ready(function () {
     return line;
   }
 
-  // Event handlers
-  $("#btn-cluster").click(function () {
+  // Function to show centroid selection modal
+  function showCentroidSelectionModal() {
+    if (wisataData.length === 0) {
+      alert("Data wisata belum dimuat!");
+      return;
+    }
+
+    let modalHtml = `
+      <div id="centroid-modal" class="modal" style="max-height: 80%;">
+        <div class="modal-content">
+          <h4>Pilih Centroid Awal untuk Klasterisasi</h4>
+          <p>Pilih 3 wisata sebagai centroid awal untuk klasterisasi K-Means:</p>
+          
+          <div class="row">
+            <div class="col s12">
+              <table class="striped">
+                <thead>
+                  <tr>
+                    <th>Pilih</th>
+                    <th>Nama Wisata</th>
+                    ${klasterisasiCriteria
+                      .map((crit) => `<th>${crit.nama}</th>`)
+                      .join("")}
+                  </tr>
+                </thead>
+                <tbody>
+                  ${wisataData
+                    .map(
+                      (item, index) => `
+                    <tr>
+                      <td>
+                        <label>
+                          <input type="checkbox" class="centroid-checkbox" value="${index}" />
+                          <span></span>
+                        </label>
+                      </td>
+                      <td>${item.nama}</td>
+                      ${item.nilai_kriteria_klasterisasi
+                        .map((nilai) => `<td>${nilai.nilai}</td>`)
+                        .join("")}
+                    </tr>
+                  `
+                    )
+                    .join("")}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s12">
+              <p><strong>Centroid yang dipilih:</strong></p>
+              <div id="selected-centroids" class="chip-container"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-red btn-flat">Batal</a>
+          <a href="#!" id="btn-start-clustering" class="waves-effect waves-green btn">Mulai Klasterisasi</a>
+        </div>
+      </div>
+    `;
+
+    // Remove existing modal if any
+    $("#centroid-modal").remove();
+
+    // Add modal to body
+    $("body").append(modalHtml);
+
+    // Initialize modal
+    const modal = M.Modal.init(document.getElementById("centroid-modal"), {
+      dismissible: false,
+    });
+
+    // Show modal
+    modal.open();
+
+    // Handle checkbox selection
+    $(".centroid-checkbox").on("change", function () {
+      const selectedCount = $(".centroid-checkbox:checked").length;
+
+      if (selectedCount > 3) {
+        $(this).prop("checked", false);
+        M.toast({ html: "Maksimal 3 centroid dapat dipilih!" });
+        return;
+      }
+
+      updateSelectedCentroidsDisplay();
+
+      // Enable/disable start button
+      $("#btn-start-clustering").toggleClass("disabled", selectedCount !== 3);
+    });
+
+    // Handle start clustering button
+    $("#btn-start-clustering").on("click", function () {
+      if ($(this).hasClass("disabled")) {
+        M.toast({ html: "Pilih tepat 3 centroid!" });
+        return;
+      }
+
+      selectedCentroids = $(".centroid-checkbox:checked")
+        .map(function () {
+          return parseInt($(this).val());
+        })
+        .get();
+
+      modal.close();
+      performClustering();
+    });
+  }
+
+  // Function to update selected centroids display
+  function updateSelectedCentroidsDisplay() {
+    const selectedIndices = $(".centroid-checkbox:checked")
+      .map(function () {
+        return parseInt($(this).val());
+      })
+      .get();
+
+    const container = $("#selected-centroids");
+    container.empty();
+
+    selectedIndices.forEach((index, i) => {
+      const chip = $(`
+        <div class="chip">
+          Centroid ${i + 1}: ${wisataData[index].nama}
+          <i class="close material-icons" data-index="${index}">close</i>
+        </div>
+      `);
+      container.append(chip);
+    });
+
+    // Handle chip removal
+    $(".chip .close").on("click", function () {
+      const index = $(this).data("index");
+      $(`.centroid-checkbox[value="${index}"]`).prop("checked", false);
+      updateSelectedCentroidsDisplay();
+      $("#btn-start-clustering").addClass("disabled");
+    });
+  }
+
+  // Function to perform clustering with selected centroids
+  function performClustering() {
     if (wisataData.length === 0 || klasterisasiCriteria.length === 0) {
       alert("Data wisata atau kriteria klasterisasi belum dimuat!");
       return;
     }
 
-    const result = kMeansClustering(wisataData);
-    // clusterResults = result.clusters;
+    const result = kMeansClustering(wisataData, 3, 100, selectedCentroids);
     clusterResults = {
       clusters: result.clusters,
       centroids: result.centroids,
       silhouetteScore: result.silhouetteScore,
       steps: result.steps,
       iterations: result.iterations,
-      recommendations: recommendations, // tambahkan ini jika diperlukan
+      recommendations: recommendations,
+      selectedCentroids: selectedCentroids, // Store selected centroids info
     };
 
     // Update wisata data with new clusters
@@ -651,26 +811,61 @@ $(document).ready(function () {
       );
     }
 
-    console.log("Clustering completed", result);
+    console.log("Clustering completed with manual centroids", result);
+  }
+
+  // Event handlers
+  $("#btn-cluster").click(function () {
+    showCentroidSelectionModal();
   });
 
   // Show cluster results with detailed steps
   function showClusterResults(result) {
     const clusterNames = ["Tinggi", "Sedang", "Rendah"];
     const clusterCounts = Array(result.centroids.length).fill(0);
+    const clusterMembers = Array(result.centroids.length)
+      .fill()
+      .map(() => []);
 
-    result.clusters.forEach((c) => clusterCounts[c]++);
+    // Count cluster members and collect wisata names for each cluster
+    result.clusters.forEach((c, index) => {
+      clusterCounts[c]++;
+      clusterMembers[c].push(wisataData[index].nama);
+    });
 
     let html = "<h4>Hasil Klasterisasi</h4>";
+
+    // Show selected centroids info
+    if (selectedCentroids.length > 0) {
+      html += "<div class='card-panel blue lighten-5'>";
+      html += "<h6>Centroid Awal yang Dipilih:</h6>";
+      selectedCentroids.forEach((index, i) => {
+        html += `<p>Centroid ${i + 1}: ${wisataData[index].nama}</p>`;
+      });
+      html += "</div>";
+    }
+
     html += `<p>Jumlah Iterasi: ${result.iterations}</p>`;
     html += `<p>Silhouette Score: ${result.silhouetteScore.toFixed(
       4
     )} (${interpretSilhouetteScore(result.silhouetteScore)})</p>`;
     html +=
-      '<table class="table table-bordered"><thead><tr><th>Klaster</th><th>Jumlah Wisata</th><th>Centroid</th></tr></thead><tbody>';
+      '<table class="table table-bordered"><thead><tr><th>Klaster</th><th>Jumlah Wisata</th><th>Nama Wisata</th><th>Centroid</th></tr></thead><tbody>';
 
     result.centroids.forEach((centroid, idx) => {
-      html += `<tr><td>${clusterNames[idx]}</td><td>${clusterCounts[idx]}</td><td>`;
+      html += `<tr><td>${clusterNames[idx]}</td><td>${clusterCounts[idx]}</td>`;
+
+      // Add wisata names for this cluster
+      html += "<td>";
+      if (clusterMembers[idx].length > 0) {
+        html += clusterMembers[idx].join(", ");
+      } else {
+        html += "-";
+      }
+      html += "</td>";
+
+      // Add centroid values
+      html += "<td>";
       centroid.forEach((val, i) => {
         html += `${klasterisasiCriteria[i].nama}: ${val.toFixed(2)}<br>`;
       });
@@ -727,6 +922,17 @@ $(document).ready(function () {
     result.steps.forEach((step, stepIdx) => {
       html += `<div class="mb-4"><h5>${step.title}</h5>`;
       html += `<p>${step.description}</p>`;
+
+      // Show selected wisata for initial centroids
+      if (step.selectedWisata) {
+        html +=
+          "<p><strong>Wisata yang dipilih sebagai centroid awal:</strong></p>";
+        html += "<ul>";
+        step.selectedWisata.forEach((nama, idx) => {
+          html += `<li>Centroid ${idx + 1}: ${nama}</li>`;
+        });
+        html += "</ul>";
+      }
 
       if (step.assignments) {
         html += '<table class="table table-bordered"><thead><tr><th>Titik</th>';
@@ -1201,7 +1407,10 @@ $(document).ready(function () {
     recommendations.forEach((item) => {
       const baseUrlalItem = wisataData.find((w) => w.kode === item.kode);
       const marker = L.marker(
-        [parseFloat(baseUrlalItem.latitude), parseFloat(baseUrlalItem.longitude)],
+        [
+          parseFloat(baseUrlalItem.latitude),
+          parseFloat(baseUrlalItem.longitude),
+        ],
         {
           icon: L.divIcon({
             className: "rank-icon",

@@ -34,18 +34,6 @@ class InitSeeder extends Seeder
 
         // wisata
         $this->db->table('wisata')->insertBatch([
-
-            // Keraton Surakarta Hadiningrat	-75777373	110825335
-            // Pura Mangkunegaran	-75668958	1108203116
-            // Kampung Batik Laweyan	-75696487	1107951318
-            // Masjid Agung Keraton Surakarta	-7574398	1108240187
-            // Taman Balekambang	-75523052	1108050936
-            // Solo Safari	-75646417	110856022
-            // Taman Sriwedari	-75685598	1108104205
-            // The Heritage Palace	-75547544	1107522454
-            // Tumurun Private Museum	-75704012	1108138152
-            // Masjid Raya Sheikh Zayed	-75547278	1108241381
-
             [
                 'kode' => '001',
                 'nama' => 'Keraton Surakarta Hadiningrat',
@@ -203,5 +191,147 @@ class InitSeeder extends Seeder
                 'deskripsi' => 'Kriteria ini menilai tingkat keamanan di objek wisata.',
             ],
         ]);
+
+
+        // nilai kriteria klasterisasi
+        $nilaiKriteriaKlasterisasi = [
+            // Keraton Surakarta Hadiningrat (001)
+            ['wisata_kode' => '001', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 5],
+            ['wisata_kode' => '001', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 5],
+            ['wisata_kode' => '001', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 5],
+            ['wisata_kode' => '001', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 3],
+            ['wisata_kode' => '001', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 5],
+
+            // Pura Mangkunegaran (002)
+            ['wisata_kode' => '002', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 5],
+            ['wisata_kode' => '002', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 4],
+            ['wisata_kode' => '002', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 3],
+            ['wisata_kode' => '002', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 3],
+            ['wisata_kode' => '002', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 3],
+
+            // Kampung Batik Laweyan (003)
+            ['wisata_kode' => '003', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 4],
+            ['wisata_kode' => '003', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 5],
+            ['wisata_kode' => '003', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 3],
+            ['wisata_kode' => '003', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 4],
+            ['wisata_kode' => '003', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 2],
+
+            // Masjid Agung Keraton Surakarta (004)
+            ['wisata_kode' => '004', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 4],
+            ['wisata_kode' => '004', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 5],
+            ['wisata_kode' => '004', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 5],
+            ['wisata_kode' => '004', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 5],
+            ['wisata_kode' => '004', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 2],
+
+            // Taman Balekambang (005)
+            ['wisata_kode' => '005', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 4],
+            ['wisata_kode' => '005', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 3],
+            ['wisata_kode' => '005', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 4],
+            ['wisata_kode' => '005', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 3],
+            ['wisata_kode' => '005', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 3],
+
+            // Solo Safari (006)
+            ['wisata_kode' => '006', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 3],
+            ['wisata_kode' => '006', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 5],
+            ['wisata_kode' => '006', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 5],
+            ['wisata_kode' => '006', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 5],
+            ['wisata_kode' => '006', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 4],
+
+            // Taman Sriwedari (007)
+            ['wisata_kode' => '007', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 3],
+            ['wisata_kode' => '007', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 2],
+            ['wisata_kode' => '007', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 3],
+            ['wisata_kode' => '007', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 3],
+            ['wisata_kode' => '007', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 2],
+
+            // The Heritage Palace (008)
+            ['wisata_kode' => '008', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 2],
+            ['wisata_kode' => '008', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 2],
+            ['wisata_kode' => '008', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 2],
+            ['wisata_kode' => '008', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 4],
+            ['wisata_kode' => '008', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 2],
+
+            // Tumurun Private Museum (009)
+            ['wisata_kode' => '009', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 4],
+            ['wisata_kode' => '009', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 3],
+            ['wisata_kode' => '009', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 3],
+            ['wisata_kode' => '009', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 3],
+            ['wisata_kode' => '009', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 2],
+
+            // Masjid Raya Sheikh Zayed (010)
+            ['wisata_kode' => '010', 'kriteria_klasterisasi_kode' => 'K001', 'nilai' => 3],
+            ['wisata_kode' => '010', 'kriteria_klasterisasi_kode' => 'K002', 'nilai' => 5],
+            ['wisata_kode' => '010', 'kriteria_klasterisasi_kode' => 'K003', 'nilai' => 5],
+            ['wisata_kode' => '010', 'kriteria_klasterisasi_kode' => 'K004', 'nilai' => 2],
+            ['wisata_kode' => '010', 'kriteria_klasterisasi_kode' => 'K005', 'nilai' => 3],
+        ];
+
+        $this->db->table('nilai_kriteria_klasterisasi')->insertBatch($nilaiKriteriaKlasterisasi);
+
+
+        // nilai kriteria perengkingan
+        $nilaiKriteriaPerengkingan = [
+            // Tumurun Private Museum (009)
+            ['wisata_kode' => '009', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '009', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '009', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '009', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Taman Sriwedari (007)
+            ['wisata_kode' => '007', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '007', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '007', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '007', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Masjid Agung Keraton Surakarta (004)
+            ['wisata_kode' => '004', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '004', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '004', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '004', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Pura Mangkunegaran (002)
+            ['wisata_kode' => '002', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '002', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '002', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '002', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Kampung Batik Laweyan (003)
+            ['wisata_kode' => '003', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '003', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '003', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '003', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Keraton Surakarta Hadiningrat (001)
+            ['wisata_kode' => '001', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '001', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '001', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '001', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Taman Balekambang (005)
+            ['wisata_kode' => '005', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '005', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '005', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '005', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Masjid Raya Sheikh Zayed (010)
+            ['wisata_kode' => '010', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '010', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '010', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '010', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // Solo Safari (006)
+            ['wisata_kode' => '006', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '006', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '006', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '006', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+
+            // The Heritage Palace (008)
+            ['wisata_kode' => '008', 'kriteria_perengkingan_kode' => 'P001', 'nilai' => 5],
+            ['wisata_kode' => '008', 'kriteria_perengkingan_kode' => 'P002', 'nilai' => 5],
+            ['wisata_kode' => '008', 'kriteria_perengkingan_kode' => 'P003', 'nilai' => 5],
+            ['wisata_kode' => '008', 'kriteria_perengkingan_kode' => 'P004', 'nilai' => 5],
+        ];
+
+        $this->db->table('nilai_kriteria_perengkingan')->insertBatch($nilaiKriteriaPerengkingan);
     }
 }
